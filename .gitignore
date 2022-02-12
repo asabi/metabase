@@ -1,0 +1,13 @@
+.DS_Store
+
+ssl/*
+logs/*
+conf.d/*
+metabase.db/*
+www/pub/*
+
+!ssl/.placeholder
+!logs/.placeholder
+!conf.d/.placeholder
+!metabase.db/.placeholder
+!www/pub/.placeholder

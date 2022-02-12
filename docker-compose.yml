@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  metabase:
+    image: metabase/metabase:latest
+    user: root
+    container_name: metabase
+    hostname: metabase
+    #platform: "linux/x86_64"
+    #platform: "linux/amd64"
+    volumes:
+      - "./metabase.db:/metabase.db"
+    ports:
+      - "3000:3000"
+    environment:
+      - MB_SITE_URL='http://localhost:3000'
+      - MB_REDIRECT_ALL_REQUESTS_TO_HTTPS=false
+    mem_limit: 768m
+    restart: always
+  nginx:
+    image: "nginx:1.17"
+    container_name: nginx
+    volumes:
+      - "./www:/www"
+      - "./logs:/var/logs"
+      - "./services.conf:/etc/nginx/nginx.conf"
+      - "./ssl:/etc/nginx/ssl"
+      - "./conf.d:/etc/nginx/conf.d"
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    depends_on:
+      - metabase
